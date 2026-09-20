@@ -31,8 +31,8 @@
 
 -- CHANGE THESE!!!
 POLYFILL_FLAGS = {
-	Verbose = FLAGS.Verbose, -- If verbose printing is enabled
-	ExternalOutput = FLAGS.ExternalOutput,
+	Verbose = false, -- If verbose printing is enabled
+	ExternalOutput = true,
 	utf8 = true -- If you do not have a utf8 library, set this to false
 }
 
