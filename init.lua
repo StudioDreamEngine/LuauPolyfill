@@ -60,7 +60,7 @@ do
 
 		return function()
 			local start, _end = string.find(s, pattern, previousIndex)
-			if (not start) then return end
+			if (not start) or (not _end) then return end
 
 			previousIndex = _end
 			return start, string.sub(s, start, _end)
