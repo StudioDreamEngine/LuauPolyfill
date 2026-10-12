@@ -67,7 +67,7 @@ do
 		end
 	end
 
-	function string.close(string,closeStringOne,closeStringTwo)
+	function string.closeSimple(string,closeStringOne,closeStringTwo)
 		closeStringOne = closeStringOne or ","
 		closeStringTwo = closeStringTwo or closeStringOne
 		local Pattern = "%" .. closeStringOne .. "(.-)%" .. closeStringTwo
@@ -77,6 +77,41 @@ do
 			table.insert(Table,StringGiven)
 		end
 		return Table
+	end
+
+	function string.close(string,A,B)
+		local length = string.len(string)
+        local Infos = {
+            AlreadyFoundFirst = false,
+            DelayLetter = 0,
+            SecondMatchCount = 0,
+        }
+        local FinalString = ""
+
+		for i=1,length do
+			local letter = string.sub(string,i,i)
+			if letter == A then
+                if not Infos.AlreadyFoundFirst then
+                    Infos.AlreadyFoundFirst = true
+                else
+                    Infos.DelayLetter = Infos.DelayLetter + 1
+                    FinalString=FinalString..letter
+                end
+            elseif letter == B then
+                Infos.SecondMatchCount = Infos.SecondMatchCount + 1
+                if Infos.DelayLetter == Infos.SecondMatchCount then
+                    FinalString=FinalString..letter
+                end
+            else
+                if Infos.AlreadyFoundFirst then
+                    FinalString=FinalString..letter
+                end
+            end
+		end
+        
+        Infos = nil
+
+        return FinalString
 	end
 
 	-- Thx Emk530
