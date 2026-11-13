@@ -233,6 +233,8 @@ do
 
 	-- #Table but better, TODO: Make this a wrapper for getn?
 	function table.length(Table)
+		assert(Table, "No table passed")
+
 		local i = 0
 		for _, v in pairs(Table) do i = i + 1 end
 
@@ -251,6 +253,8 @@ do
 
 	-- Make a table readonly (frozen)
 	function table.freeze(Table)
+		assert(Table, "No table passed")
+
 		local Proxied = setmetatable({}, {
 			__index = Table,
 			__newindex = function(...)
@@ -266,6 +270,8 @@ do
 
 	-- Unfreeze a frozen table (mikl thats not how freezing tables works! its meant to be frozen PERMANENTLY)
 	function table.unfreeze(Table)
+		assert(Table, "No table passed")
+
 		if table.find(FreezedTables,Table) then
 			local Proxied = setmetatable({}, {
 				__index = Table
@@ -279,6 +285,8 @@ do
 
 	-- Yes, Lua 5.1 doesnt have table.find (iirc)
 	function table.findLite(table, value)
+		assert(table, "No table passed")
+
 		for i,v in pairs(table) do
 			if v == value then
 				return i
@@ -287,6 +295,8 @@ do
 	end
 
 	function table.reverse(list)
+		assert(list, "No table passed")
+
 		local newlist = {}
 
 		for i = 0, #list do
@@ -299,6 +309,8 @@ do
 	-- Find a value within a table, if you dont care about custom types (:Is), use findLite instead
 	-- TODO: This function should decide if to check for custom types depending on value
 	function table.find(table, value)
+		assert(table, "No table passed")
+
 		if value == nil then return end
 
 		for i,v in pairs(table) do
@@ -311,6 +323,7 @@ do
 	end
 
 	function table.removeValue(list, value)
+		assert(list, "No table passed")
 		local valueIndex = table.find(list, value)
 
 		if valueIndex then
@@ -325,6 +338,7 @@ do
 	end
 
 	function table.deepcopy(original)
+		assert(original, "No table passed")
 		local copy = {}
 		for k, v in pairs(original) do
 			if k ~= "Parent" then
